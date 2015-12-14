@@ -1,12 +1,12 @@
 package com.example.administrator.calculator;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Calculator extends AppCompatActivity implements View.OnClickListener{
+public class Calculator extends AppCompatActivity implements View.OnClickListener {
     TextView tx;
     Button num1;
     Button num2;
@@ -31,7 +31,7 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
-        tx =(TextView) findViewById(R.id.textView2);
+        tx = (TextView) findViewById(R.id.textView2);
         num1 = (Button) findViewById(R.id.button);
         num2 = (Button) findViewById(R.id.button2);
         num3 = (Button) findViewById(R.id.button3);
@@ -74,33 +74,33 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
         reset.setOnClickListener(this);
         tx.setText("");
     }
-    @Override
-    public void onClick (View v){
-       Button b =(Button)v;
 
-       if(b.getText().equals("0")
-              ||b.getText().equals("1")
-              ||b.getText().equals("2")
-              ||b.getText().equals("3")
-              ||b.getText().equals("4")
-              ||b.getText().equals("5")
-              ||b.getText().equals("6")
-              ||b.getText().equals("7")
-              ||b.getText().equals("8")
-              ||b.getText().equals("9")
-              ||b.getText().equals(".")){
-           tx.append(b.getText());
+    @Override
+    public void onClick(View v) {
+        Button b = (Button) v;
+
+        if (b.getText().equals("0")
+                || b.getText().equals("1")
+                || b.getText().equals("2")
+                || b.getText().equals("3")
+                || b.getText().equals("4")
+                || b.getText().equals("5")
+                || b.getText().equals("6")
+                || b.getText().equals("7")
+                || b.getText().equals("8")
+                || b.getText().equals("9")
+                || b.getText().equals(".")) {
+            tx.append(b.getText());
         }
         String value = tx.getText().toString();
         int number = Integer.valueOf(value);
 
 
-
-       if(b.getText().equals("C")){
-           tx.setText("");
-       }
-
+        if (b.getText().equals("C")) {
+            tx.setText("");
         }
+
     }
+}
 
 
