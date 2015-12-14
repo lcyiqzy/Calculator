@@ -1,4 +1,4 @@
-#My first Android project
+#y first Android project
 
 this project is my first phase to study Android.
 
