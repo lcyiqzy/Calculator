@@ -99,7 +99,7 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
         if (b.getText().equals("C")) {
             tx.setText("");
         }
-
+if（b.getAccessibilityClassName()）
     }
 }
 
