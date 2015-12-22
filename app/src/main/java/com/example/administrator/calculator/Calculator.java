@@ -6,7 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+
 public class Calculator extends AppCompatActivity implements View.OnClickListener {
+
+
+
     TextView tx;
     Button num1;
     Button num2;
@@ -78,7 +82,7 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         Button b = (Button) v;
-
+        String exp = tx.getText().toString();
         if (b.getText().equals("0")
                 || b.getText().equals("1")
                 || b.getText().equals("2")
@@ -89,17 +93,25 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
                 || b.getText().equals("7")
                 || b.getText().equals("8")
                 || b.getText().equals("9")
-                || b.getText().equals(".")) {
+                || b.getText().equals(".")
+                || b.getText().equals("*")
+                || b.getText().equals("/")
+                || b.getText().equals("+")
+                || b.getText().equals("-")
+                ) {
             tx.append(b.getText());
-        }
-        String value = tx.getText().toString();
-        int number = Integer.valueOf(value);
-
+    }
 
         if (b.getText().equals("C")) {
             tx.setText("");
         }
-if（b.getAccessibilityClassName()）
+        else if (b.getText().equals("delete")){
+            if(exp.equals("")) return;
+                tx.setText(exp.substring(0, exp.length()-1));
+        }
+        else if(b.getText().equals("=")) {
+            if (exp.equals("")) return;
+        }
     }
 }
 
