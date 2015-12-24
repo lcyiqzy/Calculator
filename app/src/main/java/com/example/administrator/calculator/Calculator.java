@@ -1,16 +1,13 @@
 package com.example.administrator.calculator;
-
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
+import java.util.Arrays;
 
 public class Calculator extends AppCompatActivity implements View.OnClickListener {
-
-
-
+    boolean isClear = false;
     TextView tx;
     Button num1;
     Button num2;
@@ -83,6 +80,7 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         Button b = (Button) v;
         String exp = tx.getText().toString();
+
         if (b.getText().equals("0")
                 || b.getText().equals("1")
                 || b.getText().equals("2")
@@ -100,19 +98,29 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
                 || b.getText().equals("-")
                 ) {
             tx.append(b.getText());
-    }
+        }
 
         if (b.getText().equals("C")) {
             tx.setText("");
-        }
-        else if (b.getText().equals("delete")){
-            if(exp.equals("")) return;
-                tx.setText(exp.substring(0, exp.length()-1));
-        }
-        else if(b.getText().equals("=")) {
+        } else if (b.getText().equals("delete")) {
             if (exp.equals("")) return;
+            tx.setText(exp.substring(0, exp.length() - 1));
+        } else if (b.getText().equals("=")) {
+            if (exp.equals("")) return;
+            exp = exp.replaceAll("×", "*");
+            exp = exp.replaceAll("÷", "/");
+           tx.setText(exp);
+            isClear = false;
+        }else{
+            tx.setText(tx.getText()+""+b.getText());
+            isClear = false;
         }
     }
-}
 
 
+
+
+
+
+
+    }
