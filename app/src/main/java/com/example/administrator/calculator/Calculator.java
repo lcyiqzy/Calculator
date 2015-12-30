@@ -1,14 +1,15 @@
 package com.example.administrator.calculator;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import java.util.Arrays;
 
 public class Calculator extends AppCompatActivity implements View.OnClickListener {
-    boolean isClear = false;
+    boolean step = false;
     TextView tx;
+    TextView tx1;
     Button num1;
     Button num2;
     Button num3;
@@ -27,12 +28,18 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
     Button divide;
     Button delete;
     Button reset;
+    int x = 0;
+    int y = 0;
+    String z;
+    String k;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
+
         tx = (TextView) findViewById(R.id.textView2);
+        tx1 = (TextView) findViewById(R.id.textView);
         num1 = (Button) findViewById(R.id.button);
         num2 = (Button) findViewById(R.id.button2);
         num3 = (Button) findViewById(R.id.button3);
@@ -74,14 +81,18 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
         delete.setOnClickListener(this);
         reset.setOnClickListener(this);
         tx.setText("");
+        tx1.setText("");
+
     }
 
     @Override
     public void onClick(View v) {
         Button b = (Button) v;
         String exp = tx.getText().toString();
+        String exp1 = tx1.getText().toString();
 
-        if (b.getText().equals("0")
+        int result;
+        if (!step && (b.getText().equals("0")
                 || b.getText().equals("1")
                 || b.getText().equals("2")
                 || b.getText().equals("3")
@@ -92,35 +103,81 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
                 || b.getText().equals("8")
                 || b.getText().equals("9")
                 || b.getText().equals(".")
-                || b.getText().equals("*")
+        )) {
+            tx.append(b.getText());
+            x = Integer.parseInt(tx.getText().toString());
+            return;
+        }
+
+        if (b.getText().equals("*")
                 || b.getText().equals("/")
                 || b.getText().equals("+")
                 || b.getText().equals("-")
                 ) {
+            if (exp.equals("")) {
+                return;
+            }
+            tx1.setText(b.getText());
+            step = true;
+            return;
+        }
+
+        if (step) {
+            tx.setText("");
+            step = false;
+            tx.setText(b.getText());
+            return;
+        } else{if ((b.getText().equals("0")
+                || b.getText().equals("1")
+                || b.getText().equals("2")
+                || b.getText().equals("3")
+                || b.getText().equals("4")
+                || b.getText().equals("5")
+                || b.getText().equals("6")
+                || b.getText().equals("7")
+                || b.getText().equals("8")
+                || b.getText().equals("9")
+                || b.getText().equals(".")))
             tx.append(b.getText());
+            k = tx.getText().toString();
+            if(k.equals("")){
+                return;
+            }
+            y = Integer.parseInt(k.toString());
         }
 
         if (b.getText().equals("C")) {
+            if (exp.equals("")) {
+                return;
+            }
             tx.setText("");
-        } else if (b.getText().equals("delete")) {
-            if (exp.equals("")) return;
+            tx1.setText("");
+        }
+
+        else if (b.getText().equals("delete")) {
+            if (exp.equals("")) {
+                return;
+            }
             tx.setText(exp.substring(0, exp.length() - 1));
         } else if (b.getText().equals("=")) {
-            if (exp.equals("")) return;
-            exp = exp.replaceAll("×", "*");
-            exp = exp.replaceAll("÷", "/");
-           tx.setText(exp);
-            isClear = false;
-        }else{
-            tx.setText(tx.getText()+""+b.getText());
-            isClear = false;
+            if (exp.equals("")) {
+                return;
+            }
+
+            if (tx1.getText().equals("+")) {
+                tx.setText(String.valueOf(x + y));
+            } else if (tx1.getText().equals("-")) {
+                tx.setText(String.valueOf(x - y));
+            }
+            else if (tx1.getText().equals("*")) {
+                tx.setText(String.valueOf(x * y));
+            }
+            else if (tx1.getText().equals("/")) {
+                tx.setText(String.valueOf(x / y));
+            }
+
         }
     }
+}
 
 
-
-
-
-
-
-    }
