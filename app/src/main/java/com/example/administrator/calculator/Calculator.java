@@ -28,10 +28,10 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
     Button divide;
     Button delete;
     Button reset;
-    int x = 0;
-    int y = 0;
-    String z;
+    float x = 0;
+    float y = 0;
     String k;
+    String s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,9 +89,15 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         Button b = (Button) v;
         String exp = tx.getText().toString();
-        String exp1 = tx1.getText().toString();
 
-        int result;
+        if (b.getText().equals(".")) {
+            if (exp.equals("")) {
+                return;
+            }
+            if (exp.contains(".")) {
+                return;
+            }
+        }
         if (!step && (b.getText().equals("0")
                 || b.getText().equals("1")
                 || b.getText().equals("2")
@@ -102,10 +108,13 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
                 || b.getText().equals("7")
                 || b.getText().equals("8")
                 || b.getText().equals("9")
-                || b.getText().equals(".")
-        )) {
+                || b.getText().equals("."))) {
             tx.append(b.getText());
-            x = Integer.parseInt(tx.getText().toString());
+            s = tx.getText().toString();
+            if (s.equals("")) {
+                return;
+            }
+            x = Float.parseFloat(s);
             return;
         }
 
@@ -122,12 +131,7 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
             return;
         }
 
-        if (step) {
-            tx.setText("");
-            step = false;
-            tx.setText(b.getText());
-            return;
-        } else{if ((b.getText().equals("0")
+        if (step && (b.getText().equals("0")
                 || b.getText().equals("1")
                 || b.getText().equals("2")
                 || b.getText().equals("3")
@@ -137,24 +141,38 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
                 || b.getText().equals("7")
                 || b.getText().equals("8")
                 || b.getText().equals("9")
-                || b.getText().equals(".")))
-            tx.append(b.getText());
+                || b.getText().equals(".")
+        )) {
+            tx.setText("");
+            step = false;
+            tx.setText(b.getText());
+            return;
+        } else {
+            if (b.getText().equals("0")
+                    || b.getText().equals("1")
+                    || b.getText().equals("2")
+                    || b.getText().equals("3")
+                    || b.getText().equals("4")
+                    || b.getText().equals("5")
+                    || b.getText().equals("6")
+                    || b.getText().equals("7")
+                    || b.getText().equals("8")
+                    || b.getText().equals("9")
+                    || b.getText().equals("."))
+                tx.append(b.getText());
             k = tx.getText().toString();
-            if(k.equals("")){
+            if (k.equals("")) {
                 return;
             }
-            y = Integer.parseInt(k.toString());
+            y = Float.parseFloat(k);
         }
-
         if (b.getText().equals("C")) {
             if (exp.equals("")) {
                 return;
             }
             tx.setText("");
             tx1.setText("");
-        }
-
-        else if (b.getText().equals("delete")) {
+        } else if (b.getText().equals("delete")) {
             if (exp.equals("")) {
                 return;
             }
@@ -163,16 +181,13 @@ public class Calculator extends AppCompatActivity implements View.OnClickListene
             if (exp.equals("")) {
                 return;
             }
-
             if (tx1.getText().equals("+")) {
                 tx.setText(String.valueOf(x + y));
             } else if (tx1.getText().equals("-")) {
                 tx.setText(String.valueOf(x - y));
-            }
-            else if (tx1.getText().equals("*")) {
+            } else if (tx1.getText().equals("*")) {
                 tx.setText(String.valueOf(x * y));
-            }
-            else if (tx1.getText().equals("/")) {
+            } else if (tx1.getText().equals("/")) {
                 tx.setText(String.valueOf(x / y));
             }
 
